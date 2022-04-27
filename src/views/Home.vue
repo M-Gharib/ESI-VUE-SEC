@@ -1,18 +1,28 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+<div class="home">
+<div v-if="checkRoles(['USER'])">
+    Hello User
+</div>
+<div v-if="checkRoles(['ADMIN'])">
+   Hello Admin
+</div>
+</div>
+
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import auth from '@/components/auth.js';
 
 export default {
   name: "Home",
   components: {
-    HelloWorld,
+   // HelloWorld,
   },
+      methods: {
+    checkRoles: function(roles) {
+      return auth.hasAnyOf(roles);}
+    }
+
 };
 </script>
